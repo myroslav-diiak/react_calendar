@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
 import './CalendarItem.scss';
-
+/* eslint-disable */
 type Props = {
   number: number | string;
 };

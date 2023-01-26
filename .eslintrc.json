@@ -25,6 +25,7 @@
     "rules": {
         "import/prefer-default-export": 0,
         "react/function-component-definition": 0,
-        "no-plusplus": 0
+        "no-plusplus": 0,
+        "import/no-duplicates": 0
     }
 }

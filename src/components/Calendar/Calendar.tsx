@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { CalendarItem } from '../CalendarItem';
+import { Footer } from '../Footer';
 import './Calendar.scss';
 
 export const Calendar: React.FC = () => {
-  const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  const currentDate = useAppSelector(state => state.currentDate);
+  const currentDate = useAppSelector((state) => state.currentDate);
 
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
+
   const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-  console.log(firstDay);
 
   let maxDays = monthDays[currentMonth];
   if (currentMonth === 1) {
@@ -46,13 +46,12 @@ export const Calendar: React.FC = () => {
 
   return (
     <div className="calendar">
-      {generateMatrix().map(row => {
-        return (
-          <div className="calendar-row">
-            {row.map(item => <CalendarItem number={item} />)}
-          </div>
-        );
-      })}
+      {generateMatrix().map((row) => (
+        <div className="calendar-row">
+          {row.map((item) => <CalendarItem number={item} />)}
+        </div>
+      ))}
+      <Footer />
     </div>
   );
 };
