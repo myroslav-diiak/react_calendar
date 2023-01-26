@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useAppSelector } from '../../app/hooks';
+import { CalendarItem } from '../CalendarItem';
+import './Calendar.scss';
 
 export const Calendar: React.FC = () => {
   const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const currentDate = useAppSelector(state => state.currentDate);
 
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
@@ -42,12 +45,14 @@ export const Calendar: React.FC = () => {
   }, []);
 
   return (
-    <>
-      {currentDate.toString}
-      {month.toString()}
-      {weekDays.toString()}
-      {monthDays.toString()}
-      {setCurrentDate.toString()}
-    </>
+    <div className="calendar">
+      {generateMatrix().map(row => {
+        return (
+          <div className="calendar-row">
+            {row.map(item => <CalendarItem number={item} />)}
+          </div>
+        );
+      })}
+    </div>
   );
 };

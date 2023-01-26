@@ -1,0 +1,15 @@
+.calendar {
+  margin: auto;
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+
+  border-top: 1px solid rgb(172, 172, 172);
+  border-right: 1px solid rgb(172, 172, 172);
+
+  &-row {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+  }
+}
