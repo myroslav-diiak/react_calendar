@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { CalendarItem } from '../CalendarItem';
 import { Footer } from '../Footer';
+import { actions as currentDateActions } from '../../features/currentDate';
 import './Calendar.scss';
 
 export const Calendar: React.FC = () => {
+  const dispatch = useAppDispatch();
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const currentDate = useAppSelector((state) => state.currentDate);
@@ -41,7 +43,11 @@ export const Calendar: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(generateMatrix());
+    const dateFilter = JSON.parse(localStorage.getItem('pickedDate') || '[]');
+    if (dateFilter.length) {
+      const newDate = new Date(dateFilter[0], dateFilter[1], 1);
+      dispatch(currentDateActions.setCurrentDate(newDate));
+    }
   }, []);
 
   return (
