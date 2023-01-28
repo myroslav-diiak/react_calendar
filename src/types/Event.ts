@@ -9,4 +9,4 @@ export interface Event {
   day: number,
   createdAt: Date,
   updatedAt?: Date,
-};
+}
