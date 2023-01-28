@@ -26,6 +26,10 @@
         "import/prefer-default-export": 0,
         "react/function-component-definition": 0,
         "no-plusplus": 0,
-        "import/no-duplicates": 0
+        "import/no-duplicates": 0,
+        "@typescript-eslint/default-param-last": 0,
+        "jsx-a11y/label-has-associated-control": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-noninteractive-element-interactions": 0
     }
 }

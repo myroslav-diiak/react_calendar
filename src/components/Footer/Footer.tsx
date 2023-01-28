@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { actions as currentDateActions } from '../../features/currentDate';
+import { actions as selectedEventActions } from '../../features/selectedEvent';
 import './Footer.scss';
 
 export const Footer: React.FC = () => {
@@ -18,7 +19,7 @@ export const Footer: React.FC = () => {
 
   useEffect(() => {
     const dateFilter = JSON.parse(localStorage.getItem('pickedDate') || '[]');
-    console.log(dateFilter);
+
     if (dateFilter.length) {
       setCurrentYear(dateFilter[0]);
       setCurrentMonth(dateFilter[1]);
@@ -61,7 +62,7 @@ export const Footer: React.FC = () => {
   };
 
   const addEventHandler = () => {
-    console.log(localStorage.removeItem('pickedDate'));
+    dispatch(selectedEventActions.setSelectedEvent(0));
   };
 
   return (

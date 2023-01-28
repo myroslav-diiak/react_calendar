@@ -1,6 +1,8 @@
 .calendar-item {
   width: 180px;
-  height: 100px;
+  height: 120px;
+
+  padding: 7px;
 
   background-color: rgb(238, 255, 249);
 
@@ -8,8 +10,20 @@
   border-bottom: 1px solid rgb(172, 172, 172);
 
   transition: 0.3s;
+}
 
-  &:hover {
-    background-color: rgb(255, 241, 225);
-  }
+.empty {
+  background-color: rgb(240, 240, 240);
+}
+
+.day:hover {
+  background-color: rgb(255, 241, 225);
+}
+
+.week-day {
+  background-color: rgb(255, 238, 254);
+}
+
+.today {
+  background-color: rgb(255, 204, 204);
 }

@@ -1,6 +1,7 @@
 {
   "name": "react-calendar",
   "version": "0.1.0",
+  "homepage": "https://myroslav-diiak.github.io/react_calendar",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -11,6 +12,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "bootstrap": "^5.2.3",
+    "classnames": "^2.3.2",
     "eslint-config-airbnb": "^19.0.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
@@ -26,6 +28,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -55,6 +59,7 @@
     "@typescript-eslint/parser": "^5.49.0",
     "eslint": "^8.32.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-plugin-react": "^7.32.1"
+    "eslint-plugin-react": "^7.32.1",
+    "gh-pages": "^5.0.0"
   }
 }

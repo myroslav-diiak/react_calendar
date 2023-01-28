@@ -42,6 +42,8 @@ export const Calendar: React.FC = () => {
     return matrix;
   };
 
+  const generateKey = (index: number) => `${index}${new Date().getTime()}`;
+
   useEffect(() => {
     const dateFilter = JSON.parse(localStorage.getItem('pickedDate') || '[]');
     if (dateFilter.length) {
@@ -52,9 +54,9 @@ export const Calendar: React.FC = () => {
 
   return (
     <div className="calendar">
-      {generateMatrix().map((row) => (
-        <div className="calendar-row">
-          {row.map((item) => <CalendarItem number={item} />)}
+      {generateMatrix().map((row, i) => (
+        <div className="calendar-row" key={generateKey(i)}>
+          {row.map((item, k) => <CalendarItem key={generateKey(k)} data={item} />)}
         </div>
       ))}
       <Footer />
