@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { actions as currentEventActions } from '../../features/selectedEvent';
 import { actions as eventsActions } from '../../features/events';
+import { actions as pickedDateActions } from '../../features/pickedDate';
 import { Event } from '../../types/Event';
 import './EventsForm.scss';
 
@@ -9,11 +11,14 @@ export const EventsForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedEventId = useAppSelector((state) => state.selectedEvent);
   const events = useAppSelector((state) => state.events);
+  const pickedDate = useAppSelector((state) => state.pickedDate);
 
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [time, setTime] = useState('');
   const [date, setDate] = useState('');
+
+  const [inputError, setInputError] = useState(false);
 
   const currentEvent = events.find((event) => event.id === selectedEventId);
 
@@ -24,10 +29,15 @@ export const EventsForm: React.FC = () => {
       setTime(currentEvent?.time || '');
       setDate(currentEvent?.date || '');
     }
+
+    if (pickedDate) {
+      setDate(pickedDate);
+    }
   }, []);
 
   const backButtonHandler = () => {
     dispatch(currentEventActions.setSelectedEvent(null));
+    dispatch(pickedDateActions.setPickedDate(null));
   };
 
   const addNewEvent = () => {
@@ -72,6 +82,12 @@ export const EventsForm: React.FC = () => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!title.trim().length) {
+      setInputError(true);
+
+      return;
+    }
+
     if (selectedEventId === 0) {
       addNewEvent();
     } else {
@@ -110,14 +126,14 @@ export const EventsForm: React.FC = () => {
           </span>
         )}
         <label
-          className="events-form--label"
+          className={cn('events-form--label', { 'error-text': inputError })}
           htmlFor="title-input"
         >
           Enter event title
         </label>
         <input
           type="text"
-          className="events-form--text-field"
+          className={cn('events-form--text-field', { error: inputError })}
           placeholder="Title"
           id="title-input"
           value={title}

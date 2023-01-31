@@ -11,13 +11,15 @@ type Props = {
 export const EventsList: React.FC<Props> = ({ events }) => {
   const dispatch = useAppDispatch();
 
+  const sortedEvents = events.sort((a, b) => a.time.localeCompare(b.time));
+
   const eventClickHandler = (id: number) => {
     dispatch(currentEventActions.setSelectedEvent(id));
   };
 
   return (
     <ul className="event-list">
-      {events.map((event) => (
+      {sortedEvents.map((event) => (
         <li
           key={event.id}
           className="event-list--item"

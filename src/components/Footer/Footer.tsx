@@ -12,9 +12,12 @@ export const Footer: React.FC = () => {
   const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
 
+  const [dateValue, setDateValue] = useState('');
+
   useEffect(() => {
     const newDate = new Date(currentYear, currentMonth, 1);
     dispatch(currentDateActions.setCurrentDate(newDate));
+    setDateValue(`${currentYear}-${currentMonth < 9 ? '0' : ''}${currentMonth + 1}`);
   }, [currentMonth, currentYear]);
 
   useEffect(() => {
@@ -32,7 +35,14 @@ export const Footer: React.FC = () => {
   };
 
   const datePickerHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.split('-');
+    const inputValue = event.target.value;
+    let value;
+    if (inputValue.length) {
+      value = inputValue.split('-');
+    } else {
+      value = [new Date().getFullYear(), new Date().getMonth() + 1];
+    }
+
     setCurrentYear(+value[0]);
     setCurrentMonth(+value[1] - 1);
 
@@ -97,6 +107,7 @@ export const Footer: React.FC = () => {
 
       <input
         type="month"
+        value={dateValue}
         onChange={(event) => datePickerHandler(event)}
       />
     </div>

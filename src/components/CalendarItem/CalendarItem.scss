@@ -16,8 +16,11 @@
   background-color: rgb(240, 240, 240);
 }
 
-.day:hover {
-  background-color: rgb(255, 241, 225);
+.day {
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(255, 241, 225);
+  }
 }
 
 .week-day {

@@ -1,6 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { actions as currentEventActions } from '../../features/selectedEvent';
+import { actions as pickedDateActions } from '../../features/pickedDate';
 import { Event } from '../../types/Event';
 import './CalendarItem.scss';
 import { EventsList } from '../EventsList';
@@ -10,6 +12,7 @@ type Props = {
 };
 
 export const CalendarItem: React.FC<Props> = ({ data }) => {
+  const dispatch = useAppDispatch();
   const events: Event[] = useAppSelector((state) => state.events);
   const currentDate = useAppSelector((state) => state.currentDate);
 
@@ -24,6 +27,17 @@ export const CalendarItem: React.FC<Props> = ({ data }) => {
 
   const isToday = nowDay === data && nowMonth === selectedMonth && nowYear === selectedYear;
 
+  const clickHandler = () => {
+    if (typeof data === 'string' || data < 1) {
+      return;
+    }
+
+    const pickedDate = `${selectedYear}-${selectedMonth < 9 ? '0' : ''}${selectedMonth + 1}-${data < 9 ? '0' : ''}${data}`;
+
+    dispatch(pickedDateActions.setPickedDate(pickedDate));
+    dispatch(currentEventActions.setSelectedEvent(0));
+  };
+
   const todayEvents = events.filter((event) => {
     const { day, month, year } = event;
 
@@ -37,12 +51,14 @@ export const CalendarItem: React.FC<Props> = ({ data }) => {
   }
 
   return (
-    <div className={cn(
-      'calendar-item',
-      { day: typeof data === 'number' },
-      { 'week-day': typeof data === 'string' },
-      { today: isToday },
-    )}
+    <div
+      className={cn(
+        'calendar-item',
+        { day: typeof data === 'number' },
+        { 'week-day': typeof data === 'string' },
+        { today: isToday },
+      )}
+      onClick={clickHandler}
     >
       {data}
       { !!todayEvents.length && <EventsList events={todayEvents} />}
