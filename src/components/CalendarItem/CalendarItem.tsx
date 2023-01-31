@@ -27,8 +27,14 @@ export const CalendarItem: React.FC<Props> = ({ data }) => {
 
   const isToday = nowDay === data && nowMonth === selectedMonth && nowYear === selectedYear;
 
+  const todayEvents = events.filter((event) => {
+    const { day, month, year } = event;
+
+    return day === data && month === selectedMonth && year === selectedYear;
+  });
+
   const clickHandler = () => {
-    if (typeof data === 'string' || data < 1) {
+    if (typeof data === 'string' || data < 1 || todayEvents.length > 0) {
       return;
     }
 
@@ -37,12 +43,6 @@ export const CalendarItem: React.FC<Props> = ({ data }) => {
     dispatch(pickedDateActions.setPickedDate(pickedDate));
     dispatch(currentEventActions.setSelectedEvent(0));
   };
-
-  const todayEvents = events.filter((event) => {
-    const { day, month, year } = event;
-
-    return day === data && month === selectedMonth && year === selectedYear;
-  });
 
   if (data < 1) {
     return (
